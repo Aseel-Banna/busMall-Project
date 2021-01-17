@@ -112,46 +112,22 @@ function submitForm(){
 
 
 function imageListener(event) {
-    
-    // var btnSubmitValue= document.getElementById("userInput").value;   //10
-    // console.log(document.getElementById("userInput").value);
-    //userAttempts++;
-
-    //console.log(userAttempts <= attempts , userAttempts <= btnSubmitValue);
     console.log(userAttempts);
 
     if (userAttempts < attempts ) {
         if (event.target.id === 'left-image') {
-            // imageBusArray[leftImageIndex].imageShownNum++;
             imageBusArray[leftImageIndex].productClicked++;
             userAttempts++;
         } else if (event.target.id === 'right-image') {
-            // imageBusArray[rigthImageIndex].imageShownNum++;
             imageBusArray[rigthImageIndex].productClicked++;
             userAttempts++;
         } else {
-            // imageBusArray[centerImageIndex].imageShownNum++;
             imageBusArray[centerImageIndex].productClicked++;
             userAttempts++;
         }
         renderImages();
 
-     }// else {
-    //     var resultsList = document.getElementById('result-list');
-    //     var finalResult;
-    //     for (var i = 0; i < imageBusArray.length; i++) {
-    //         finalResult = document.createElement('li');
-    //         finalResult.textContent = imageBusArray[i].name + ' has been shown ' + imageBusArray[i].imageShownNum + ' times and has been clicked ' + imageBusArray[i].productClicked + ' times.';
-    //         resultsList.appendChild(finalResult);
-    //     }
-    //     rightImage.removeEventListener('click', imageListener);
-    //     leftImage.removeEventListener('click', imageListener);
-    //     centerImage.removeEventListener('click', imageListener);
-
-    // }
-    // else{
-    // showFinalResult();
-    // }
+    }
 
 }
 
