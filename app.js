@@ -213,8 +213,6 @@ function showFinalResult(){
                 data: votes
             }]
         },
-
-        // Configuration options go here
         options: {}
     });
     
