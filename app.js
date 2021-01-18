@@ -224,7 +224,7 @@ function showFinalResult(){
         var ctx = document.getElementById('myChart').getContext('2d');
         var chart = new Chart(ctx, {
         // The type of chart we want to create
-        type: 'bar',
+        type: 'line',
 
         // The data for our dataset
         data: {
@@ -233,8 +233,8 @@ function showFinalResult(){
                 label: 'The Result',
                 width: 'auto',
                 height: '50px',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgb(197, 168, 124)',
+                borderColor: 'rgb(	83,	46,	28)',
                 data: votes
             }]
         },
