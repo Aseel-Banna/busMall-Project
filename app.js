@@ -15,6 +15,11 @@ var divImage = document.getElementById('image-div');
 var attempts = 25;
 var userAttempts = 0;
 
+var imageName= [];
+var votes=[];
+
+var genarateIndex= [];
+
 
 var btnSubmit= document.getElementById('sumbit-btn');
 btnSubmit.addEventListener('click', submitForm);
@@ -22,6 +27,7 @@ btnSubmit.addEventListener('click', submitForm);
 
 var showResult= document.getElementById('show-btn');
 showResult.addEventListener('click', showFinalResult);
+
 
 function ImageBus(name, source) {
     this.name = name;
@@ -31,6 +37,7 @@ function ImageBus(name, source) {
     this.userInput= 0;
 
     imageBusArray.push(this);
+    imageName.push(name);
 }
 
 new ImageBus('bag', 'images/bag.jpg');
@@ -62,46 +69,104 @@ renderImages();
 
 // Adding event Listener
 
-leftImage.addEventListener('click', imageListener);
-rightImage.addEventListener('click', imageListener);
-centerImage.addEventListener('click', imageListener);
-//divImage.addEventListener('click', imageListener)
-
+divImage.addEventListener('click', imageListener);
 
 // Declaration of functions
 
 function generateRandomIndex() {
-    // var index=  Math.floor(Math.random()*((max-min)+1)+min);
-    var index = Math.floor(Math.random() * (imageBusArray.length));
-    console.log('index', index);
+    var allowed;
+    var index ;
+   if (genarateIndex.length !== 0){
+        do{
+         index= Math.floor(Math.random() * (imageBusArray.length));
+         allowed=true;
+         for(var i=0; i< genarateIndex.length; i++){
+             if (genarateIndex[i] === index){
+                 allowed= false;
+             }
+         }
+        } while (!allowed);
+    }else{ index= Math.floor(Math.random() * (imageBusArray.length));}
     return index;
 }
 
 
+
 function renderImages() {
     leftImageIndex = generateRandomIndex();
-    rightImageIndex = generateRandomIndex();
-    centerImageIndex = generateRandomIndex();
+    
 
-    while (leftImageIndex === rightImageIndex || leftImageIndex === centerImageIndex || centerImageIndex === rightImageIndex) {
-
+    do{ 
+       
         rightImageIndex = generateRandomIndex();
         centerImageIndex = generateRandomIndex();
-    }
+        if (leftImageIndex === rightImageIndex ){
+            rightImageIndex = generateRandomIndex();
+        }
+        if (centerImageIndex === rightImageIndex && centerImageIndex === leftImageIndex){
+           centerImageIndex = generateRandomIndex();
+        } 
+        console.log(genarateIndex);
+        genarateIndex=[];
+
+    } while(leftImageIndex === rightImageIndex || leftImageIndex === centerImageIndex ||
+         rightImageIndex === centerImageIndex);
+
+         //console.log(leftImageIndex, rightImageIndex, centerImageIndex );
+        //  if (genarateIndex.length !== 0){
+        //     sure();
+        // }
+        console.log(leftImageIndex, rightImageIndex, centerImageIndex );
+    
+
+    // while (leftImageIndex === rightImageIndex || leftImageIndex === centerImageIndex || 
+    //     centerImageIndex === rightImageIndex) {
+
+    //     rightImageIndex = generateRandomIndex();
+    //     centerImageIndex = generateRandomIndex();
+    //     // leftImageIndex = generateRandomIndex();
+    // }
+
+
+
+     genarateIndex.push(leftImageIndex);
+     genarateIndex.push(centerImageIndex);
+     genarateIndex.push(rightImageIndex);
 
     
 
+     
 
+     console.log('Array: ',genarateIndex);
+
+    
+
+     
+
+    // for (var c=0; c<=genarateIndex.length+1; c++){
+    // genarateIndex.pop(c);
+    //  }
+
+    console.log('After Poping',genarateIndex );
     imageBusArray[leftImageIndex].imageShownNum++;
     imageBusArray[rightImageIndex].imageShownNum++;
     imageBusArray[centerImageIndex].imageShownNum++;
-
-
 
     leftImage.src = imageBusArray[leftImageIndex].source;
     centerImage.src = imageBusArray[centerImageIndex].source;
     rightImage.src = imageBusArray[rightImageIndex].source;
 
+}
+
+  function sure(){
+   for (var c=0; c<genarateIndex.length; c++){
+    if (genarateIndex[c] === leftImageIndex || genarateIndex[c] === rightImageIndex ||  
+        genarateIndex[c] === centerImageIndex){
+        leftImageIndex = generateRandomIndex();
+        rightImageIndex = generateRandomIndex();
+        centerImageIndex = generateRandomIndex();
+     }
+ }
 }
 
 function submitForm(){
@@ -118,29 +183,71 @@ function imageListener(event) {
         if (event.target.id === 'left-image') {
             imageBusArray[leftImageIndex].productClicked++;
             userAttempts++;
-        } else if (event.target.id === 'right-image') {
-            imageBusArray[rigthImageIndex].productClicked++;
+            renderImages();
+        } else if (event.target.id === 'rigth-image') {
+            imageBusArray[rightImageIndex].productClicked++;
             userAttempts++;
-        } else {
+            renderImages();
+        } else if(event.target.id === 'center-image') {
             imageBusArray[centerImageIndex].productClicked++;
             userAttempts++;
+            renderImages();
+        }else{
+            console.log('after if is finished');
         }
-        renderImages();
+            
+        
 
+    }else{
+    showResult.disabled = false;
     }
-
 }
 
 function showFinalResult(){
 
     var resultsList = document.getElementById('result-list');
         var finalResult;
+        
         for (var i = 0; i < imageBusArray.length; i++) {
             finalResult = document.createElement('li');
-            finalResult.textContent = imageBusArray[i].name + ' has been shown ' + imageBusArray[i].imageShownNum + ' times and has been clicked ' + imageBusArray[i].productClicked + ' times.';
+            finalResult.textContent = imageBusArray[i].name + ' has been shown ' +
+            imageBusArray[i].imageShownNum + ' times and has been clicked ' +
+            imageBusArray[i].productClicked + ' times.';
             resultsList.appendChild(finalResult);
         }
-        rightImage.removeEventListener('click', imageListener);
-        leftImage.removeEventListener('click', imageListener);
-        centerImage.removeEventListener('click', imageListener)
+
+        divImage.removeEventListener('click', imageListener);
+
+        for (var i=0; i< imageBusArray.length; i++){
+            votes.push(imageBusArray[i].productClicked);
+        }
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: imageName,
+            datasets: [{
+                label: 'The Result',
+                width: 'auto',
+                height: '50px',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: votes
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+    
+        chart.config.data.datasets[0].data = votes;
+        
+
 }
+
+
+
+    

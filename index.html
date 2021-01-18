@@ -8,6 +8,7 @@
 </head>
 <body>
     <header>
+        <img src="images/blogo.png" alt="">
         <h1>Bus Mall</h1>
 
     </header>
@@ -15,33 +16,35 @@
     <main>
 
 
-        <label for="userInput">The number of attempts:</label>
-        <input type="number" placeholder="Insert the number of attempts" id="userInput" name="userInput"> <button id="sumbit-btn" type="submit">OK</button>
-
-
-    <div id="container-div">
-
-
-        
-
-        <div id="result-div">
-            <p id="result-para">The final result:</p>
-            
-            <ul id="result-list">
-
-            </ul>
-
+        <div id="divder">
+        <label for="userInput">The number of attempts</label>
+        <br>
+        <input type="number" placeholder="Insert the number of attempts" id="userInput" name="userInput">
+        <br>
+         <button id="sumbit-btn" type="submit">OK</button>
         </div>
 
-        <div id="image-div">
-            <img id="left-image" src="" alt="">
-            <img id="center-image" src="" alt="">
-            <img id="rigth-image" src="" alt="">
-        </div>
+   
+        <div id="container-div">
 
+
+            <div id="image-div">
+                <img id="left-image" src="" alt="">
+                <img id="center-image" src="" alt="">
+                <img id="rigth-image" src="" alt="">
+            </div>
+            <button id="show-btn" type="submit" disabled>Show final Result</button>
+
+            <div id="result-div">
+                <p id="result-para">The final result:</p>
+                
+                <ul id="result-list"></ul>
+
+            </div>
     </div>
 
-    <button id="show-btn" type="submit">The final Result</button>
+    
+    <canvas id="myChart"></canvas>
 
     </main>
 
@@ -51,6 +54,7 @@
         <h4>All copy rights are reeserved &copy;</h4>
 
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="app.js"></script>
 </body>
 </html>

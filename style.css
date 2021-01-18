@@ -1,13 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
 #container-div{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
     
 }
 
-#result-div{
-    grid-column: 1/2;
-    margin-right: 15px;
+header img{
+    height: 60px;
+    width: 60px;
     margin-top: 15px;
+    border: none;
+    margin-left: 25px;
+}
+
+#result-div{
+    grid-column: 1/-1;
+    margin-top: 0px;
 }
 
 #sumbit-btn{
@@ -17,95 +27,146 @@
 
 
 #result-para{
+    color: white;
     position: absolute;
-    margin-left: 175px;
-    margin-top: 15px;
-    font-size: x-large;
+    margin-left: 50px;
+    margin-top: 2px;
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: xx-large;
     font-weight: bold;
 }
 
 #result-div li{
     margin-left: 15px;
-    margin-top: 50px;
     font-weight: bold;
+    font-family: 'Yusei Magic', sans-serif;
+}
+chart{
+    height: 10px;
 }
 
-
 #image-div{
-    grid-column: 2/-1;
-    border: 4px solid #e8505b;
-    width: 800px;
+    grid-column: 1/-1;
     margin-top: 50px;
     height: 300px;
-    background-color: #f3ecc2;
 }
 
 header{
     height: 100px;
     color: white;
-    background-color: #e8505b;
     width: auto;
+   
 }
 
 header h1{
     position: absolute;
     display: inline;
-    font-family: cursive;
-    margin-left: 25px;
+    font-family: 'Yusei Magic', sans-serif;
+    margin-left: 15px;
     margin-bottom: 5px;
 }
 
 #left-image{
-    margin-left: 45px;
-    margin-right: 35px;
+    margin-left: 100px;
+    float: left;
+    margin-right: 100px;
     margin-top: 50px;
 }
 
 #center-image{
-    margin-right: 35px;
+    margin-top: 50px;
 }
 
-img{
-    height: 200px;
-    width: 200px;
-    border: 4px solid #e8505b;
+#rigth-image{
+    float: right;
+    margin-right: 100px;
+    margin-left: 100px;
+    margin-top: 50px;
 }
+
+
+img{
+    height: 300px;
+    width: 300px;
+    border: 4px solid #c5a87c;
+}
+
 
 p{
     display: inline;
     font-size: larger;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Yusei Magic', sans-serif;
     font-weight: bolder;
 }
 
-input, label, button{
+ label, button{
     margin-top: 25px;
     margin-left: 15px;
     font-weight: bolder;
+    color:white;
     font-size:large;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Yusei Magic', sans-serif;
 }
 
+#divder{
+    display: inline-block;
+    width: 350px;
+    height: 150px;
+    border: 3px solid #532e1c;
+    margin-left: 500px;
+    background-color: #c5a87c;
+}
+
+#divder label{
+    margin-top: 25px;
+    margin-left: 80px;
+}
+
+#divder input{
+    font-size: small;
+    margin-top: 10px;
+    background-color: white;
+    width: 250px;
+    height: 25px;
+    margin-left: 50px;
+    text-align: center;
+}
+
+#divder button{
+    margin-top: 15px;
+    margin-left: 120px;
+    background-color: #532e1c;
+    border-radius: 5px;
+}
+
+
+
+
+
 button{
-    background-color: #e8505b;
+    background-color: #532e1c;
+    border-radius: 5px solid #532e1c;
+    width: 250px;
     color: white;
     width: 75px;
     font-weight: bolder;
 }
 
 body{
+    background-image: url(images/mallbackground.jpg);
+    background-repeat: no-repeat;
+    background-size: 1800px 2200px;
     height: 1800px;
 }
 
 main{
     height: 100%;
-    background-color: #f9d56e ;
 }
 
 footer{
     position: relative;
     height: 50px;
-    background-color: #e8505b;
+    /* background-color: #e8505b; */
     color: white;
 }
 
@@ -116,15 +177,9 @@ footer p{
     font-size: x-large;
 }
 
-#result-div{
-    border: 4px solid #e8505b;
-    background-color: #f3ecc2;
-    
-}
-
 #show-btn{
-    margin-left: 525px;
-    margin-top: 15px;
+    margin-left: 555px;
+    margin-top: 100px;
     width: 200px;
     height: 50px;
 }
