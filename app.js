@@ -111,22 +111,7 @@ function renderImages() {
 
     } while(leftImageIndex === rightImageIndex || leftImageIndex === centerImageIndex ||
          rightImageIndex === centerImageIndex);
-
-         //console.log(leftImageIndex, rightImageIndex, centerImageIndex );
-        //  if (genarateIndex.length !== 0){
-        //     sure();
-        // }
         console.log(leftImageIndex, rightImageIndex, centerImageIndex );
-    
-
-    // while (leftImageIndex === rightImageIndex || leftImageIndex === centerImageIndex || 
-    //     centerImageIndex === rightImageIndex) {
-
-    //     rightImageIndex = generateRandomIndex();
-    //     centerImageIndex = generateRandomIndex();
-    //     // leftImageIndex = generateRandomIndex();
-    // }
-
 
 
      genarateIndex.push(leftImageIndex);
@@ -138,14 +123,6 @@ function renderImages() {
      
 
      console.log('Array: ',genarateIndex);
-
-    
-
-     
-
-    // for (var c=0; c<=genarateIndex.length+1; c++){
-    // genarateIndex.pop(c);
-    //  }
 
     console.log('After Poping',genarateIndex );
     imageBusArray[leftImageIndex].imageShownNum++;
@@ -231,8 +208,6 @@ function showFinalResult(){
             labels: imageName,
             datasets: [{
                 label: 'The Result',
-                width: 'auto',
-                height: '50px',
                 backgroundColor: 'rgb(197, 168, 124)',
                 borderColor: 'rgb(	83,	46,	28)',
                 data: votes

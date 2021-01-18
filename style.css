@@ -22,13 +22,6 @@ header img{
     margin-top: -100px;
 }
 
-#left-div{
-    float: left;
-}
-
-#right-div{
-    float: right;
-}
 
 #sumbit-btn{
     width: 100px;
@@ -186,7 +179,7 @@ footer h4{
     margin-top: 10px;
     margin-left: 475px;
     font-size: xx-large;
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 #show-btn{
