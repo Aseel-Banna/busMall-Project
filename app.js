@@ -183,7 +183,6 @@ function showFinalResult(){
             resultsList.appendChild(finalResult);
 
         }
-
         divImage.removeEventListener('click', imageListener);
         
         showChart();
