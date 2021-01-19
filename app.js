@@ -17,8 +17,12 @@ var userAttempts = 0;
 
 var imageName= [];
 var votes=[];
+var shown=[];
+var previousIndexs= [];
 
-var genarateIndex= [];
+var previousLeftIndex = -1;
+var previousRightIndex = -1;
+var previousCenterIndex = -1;
 
 
 var btnSubmit= document.getElementById('sumbit-btn');
@@ -63,68 +67,24 @@ new ImageBus('wine-glass', 'images/wine-glass.jpg');
 
 
 // Calling render function
-
 renderImages();
-
-
 // Adding event Listener
-
 divImage.addEventListener('click', imageListener);
+
 
 // Declaration of functions
 
 function generateRandomIndex() {
-    var allowed;
-    var index ;
-   if (genarateIndex.length !== 0){
-        do{
-         index= Math.floor(Math.random() * (imageBusArray.length));
-         allowed=true;
-         for(var i=0; i< genarateIndex.length; i++){
-             if (genarateIndex[i] === index){
-                 allowed= false;
-             }
-         }
-        } while (!allowed);
-    }else{ index= Math.floor(Math.random() * (imageBusArray.length));}
-    return index;
+   return  Math.floor(Math.random() * (imageBusArray.length));
 }
 
-
-
 function renderImages() {
-    leftImageIndex = generateRandomIndex();
-    
+    previousIndexs = [previousLeftIndex, previousRightIndex, previousCenterIndex];
 
-    do{ 
-       
-        rightImageIndex = generateRandomIndex();
-        centerImageIndex = generateRandomIndex();
-        if (leftImageIndex === rightImageIndex ){
-            rightImageIndex = generateRandomIndex();
-        }
-        if (centerImageIndex === rightImageIndex && centerImageIndex === leftImageIndex){
-           centerImageIndex = generateRandomIndex();
-        } 
-        console.log(genarateIndex);
-        genarateIndex=[];
+    previous();
 
-    } while(leftImageIndex === rightImageIndex || leftImageIndex === centerImageIndex ||
-         rightImageIndex === centerImageIndex);
-        console.log(leftImageIndex, rightImageIndex, centerImageIndex );
+    console.log('Array: ',previousIndexs);
 
-
-     genarateIndex.push(leftImageIndex);
-     genarateIndex.push(centerImageIndex);
-     genarateIndex.push(rightImageIndex);
-
-    
-
-     
-
-     console.log('Array: ',genarateIndex);
-
-    console.log('After Poping',genarateIndex );
     imageBusArray[leftImageIndex].imageShownNum++;
     imageBusArray[rightImageIndex].imageShownNum++;
     imageBusArray[centerImageIndex].imageShownNum++;
@@ -135,23 +95,52 @@ function renderImages() {
 
 }
 
-  function sure(){
-   for (var c=0; c<genarateIndex.length; c++){
-    if (genarateIndex[c] === leftImageIndex || genarateIndex[c] === rightImageIndex ||  
-        genarateIndex[c] === centerImageIndex){
+function previous(){
+    do {
         leftImageIndex = generateRandomIndex();
+    }while(previousIndexs.includes(leftImageIndex));
+
+    previousLeftIndex = leftImageIndex;
+    previousIndexs.push(leftImageIndex);
+
+    do {
         rightImageIndex = generateRandomIndex();
+    }while(previousIndexs.includes(rightImageIndex));
+
+    previousRightIndex = rightImageIndex;
+    previousIndexs.push(rightImageIndex);
+    
+
+    do {
         centerImageIndex = generateRandomIndex();
-     }
- }
+    }while(previousIndexs.includes(centerImageIndex));
+
+    previousCenterIndex = centerImageIndex;
 }
 
 function submitForm(){
     attempts= document.getElementById('userInput').value;
     console.log(attempts);
+    getData();
     return attempts;
 }
 
+function saveData(){
+    var insertedRounds = JSON.stringify(imageBusArray);
+    localStorage.setItem('rounds', insertedRounds);
+}
+
+function getData(){
+    var list = localStorage.getItem('rounds');
+    var listJS = JSON.parse(list);
+    if (listJS){
+        imageBusArray= listJS;
+    }
+    
+    renderImages();
+    console.log(listJS);
+  //  return listJs;
+}
 
 function imageListener(event) {
     console.log(userAttempts);
@@ -175,52 +164,81 @@ function imageListener(event) {
             
         
 
-    }else{
-    showResult.disabled = false;
-    }
+     }//else{
+    // showResult.disabled = false;
+    // }
+    saveData();
 }
 
 function showFinalResult(){
 
     var resultsList = document.getElementById('result-list');
         var finalResult;
-        
+        getData();
         for (var i = 0; i < imageBusArray.length; i++) {
             finalResult = document.createElement('li');
             finalResult.textContent = imageBusArray[i].name + ' has been shown ' +
             imageBusArray[i].imageShownNum + ' times and has been clicked ' +
             imageBusArray[i].productClicked + ' times.';
             resultsList.appendChild(finalResult);
-        }
 
+        }
         divImage.removeEventListener('click', imageListener);
-
-        for (var i=0; i< imageBusArray.length; i++){
-            votes.push(imageBusArray[i].productClicked);
-        }
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'line',
-
-        // The data for our dataset
-        data: {
-            labels: imageName,
-            datasets: [{
-                label: 'The Result',
-                backgroundColor: 'rgb(197, 168, 124)',
-                borderColor: 'rgb(	83,	46,	28)',
-                data: votes
-            }]
-        },
-        options: {}
-    });
-    
-        chart.config.data.datasets[0].data = votes;
         
-
+        showChart();
+        
 }
 
+function showChart(){
+    //getData();
+    for (var i=0; i< imageBusArray.length; i++){
+        votes.push(imageBusArray[i].productClicked);
+        shown.push(imageBusArray[i].imageShownNum);
+    }
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
 
+    // The data for our dataset
+    data: {
+        labels: imageName,
+        datasets: [{
+            label: 'Votes',
+            backgroundColor: 'rgb(197, 168, 124)',
+            borderColor: 'rgb(	83,	46,	28)',
+            data: votes
+        },
+        {
+            label: 'Views',
+            backgroundColor: 'rgb(83,	46,	28)',
+            borderColor: 'rgb(	197, 168, 124)',
+            data: shown
+        }
+    ]
+    },
+
+    // Configuration options go here
+    options: {
+        legend: {
+        fontColor: "white"},
+        scales: {
+            yAxes: [{
+                fontColor: "brown",
+                fontSize: 12,
+                ticks: {
+                    max: 10,
+                    min: 0,
+                    beginAtZero: 0,
+                    stepSize: 2,
+                }
+        }],
+
+    }}
+});
+
+    chart.config.data.datasets[0].data = votes;
+    chart.canvas.parentNode.style.color = 'black';
+}
 
     
