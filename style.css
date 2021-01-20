@@ -193,3 +193,59 @@ footer h4{
     width: 200px;
     height: 50px;
 }
+
+
+@keyframes blinkAnimation {
+    0% {
+      /*opacity: 1.0;*/
+      color: white;
+    }
+    50% {
+      /*opacity: 0;*/
+      color:#532e1c;
+    }
+    100% {
+      /*opacity: 1.0;*/
+      color: white;
+    }
+  }
+
+  #result-para {
+    animation-name: blinkAnimation;
+    animation-iteration-count: infinite;
+    animation-timing-function: steps(100);
+    animation-duration: 2000ms; 
+    animation-duration: 2000ms; 
+  }
+
+
+#show-btn {
+  background-color: #532e1c;
+  opacity: 0.8;
+  outline: 2px solid #c5a87c;
+  transition: opacity 100ms linear;
+}
+
+#show-btn:hover {
+  transition: opacity 200ms linear;
+  opacity: 1.0;
+}
+
+#show-btn:active {
+  transition-property: outline;
+  transition-duration: 200ms;
+  transition-timing-function: linear;
+  outline: 9px solid #c5a87c;
+}
+
+#left-image, #rigth-image, #center-image {
+    border-radius: 0;
+    transition: 2s;
+  }
+  
+  #left-image:hover,#rigth-image:hover, #center-image:hover  {
+    transition-property: border-radius, background-color;
+    transition-duration: 200ms;
+    transition-timing-function: linear, linear;
+    border-radius: 40%;
+  }
