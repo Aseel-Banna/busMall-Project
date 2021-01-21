@@ -1,6 +1,6 @@
 'use strict';
 
-
+// create the global variables and arrays
 var imageBusArray = [];
 
 var leftImageIndex;
@@ -32,7 +32,7 @@ btnSubmit.addEventListener('click', submitForm);
 var showResult= document.getElementById('show-btn');
 showResult.addEventListener('click', showFinalResult);
 
-
+// Create the constructor
 function ImageBus(name, source) {
     this.name = name;
     this.source = source;
@@ -44,6 +44,7 @@ function ImageBus(name, source) {
     imageName.push(name);
 }
 
+// Create the objects
 new ImageBus('bag', 'images/bag.jpg');
 new ImageBus('banana', 'images/banana.jpg');
 new ImageBus('bathroom', 'images/bathroom.jpg');
@@ -137,7 +138,7 @@ function getData(){
         imageBusArray= listJS;
     }
     
-    renderImages();
+    //renderImages();
     console.log(listJS);
   //  return listJs;
 }
@@ -164,9 +165,11 @@ function imageListener(event) {
             
         
 
-     }//else{
-    // showResult.disabled = false;
+     }
+    //  else{
+    
     // }
+    showResult.disabled = false;
     saveData();
 }
 
@@ -241,4 +244,3 @@ function showChart(){
     chart.canvas.parentNode.style.color = 'black';
 }
 
-    

@@ -1,1 +1,2 @@
 # busMall-Project
+It is a voting system for products. The products will be shown randomly and you have to choose one of them in each attempt. You will have 25 attempts as default attempts, but you can change the number of attempts in the a field that will be displayed on the home page of the projec. After finishing your votes, you can click on the show result button to see the final result of the voting and how many times the product displayed on the screen.

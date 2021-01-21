@@ -165,8 +165,9 @@ body{
     background-image: url(images/mallbackground.jpg);
     background-repeat: no-repeat;
     background-size: 1800px 2700px;
-    height: 2250px;
+    height: 2500px;
 }
+
 
 main{
     height: 100%;
@@ -241,11 +242,13 @@ footer h4{
 #left-image, #rigth-image, #center-image {
     border-radius: 0;
     transition: 2s;
+    opacity: 1;
   }
   
   #left-image:hover,#rigth-image:hover, #center-image:hover  {
     transition-property: border-radius, background-color;
     transition-duration: 200ms;
     transition-timing-function: linear, linear;
+    opacity: 0.5;
     border-radius: 40%;
   }
