@@ -122,7 +122,7 @@ function previous(){
 function submitForm(){
     attempts= document.getElementById('userInput').value;
     console.log(attempts);
-    getData();
+    
     return attempts;
 }
 
@@ -177,7 +177,7 @@ function showFinalResult(){
 
     var resultsList = document.getElementById('result-list');
         var finalResult;
-        getData();
+       // getData();
         for (var i = 0; i < imageBusArray.length; i++) {
             finalResult = document.createElement('li');
             finalResult.textContent = imageBusArray[i].name + ' has been shown ' +
@@ -243,4 +243,5 @@ function showChart(){
     chart.config.data.datasets[0].data = votes;
     chart.canvas.parentNode.style.color = 'black';
 }
+getData();
 
